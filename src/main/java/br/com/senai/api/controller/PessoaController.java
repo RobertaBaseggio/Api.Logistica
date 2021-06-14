@@ -1,19 +1,15 @@
 package br.com.senai.api.controller;
 
+import br.com.senai.api.model.PessoaModel;
 import br.com.senai.domain.model.Pessoa;
 import br.com.senai.domain.repository.PessoaRepository;
 import br.com.senai.domain.service.PessoaService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
@@ -24,9 +20,9 @@ public class PessoaController {
     private PessoaService pessoaService;
 
     @GetMapping
-    public List<Pessoa> listar(){
+    public List<PessoaModel> listar(){
 
-    return pessoaRepository.findAll();
+    return pessoaService.listar();
 
     }
     @GetMapping("/nome/{pessoaNome}")
@@ -39,7 +35,7 @@ public class PessoaController {
     }
 
     @GetMapping("{pessoaId}")
-    public ResponseEntity<Pessoa> buscar(@PathVariable Long pessoaId){
+    public ResponseEntity<PessoaModel> buscar(@PathVariable Long pessoaId){
 //        Optional<Pessoa> pessoa = pessoaRepository.findById(pessoaId);
 
 //        if(pessoa.isPresent()){
@@ -47,9 +43,7 @@ public class PessoaController {
 //        }
 //        return ResponseEntity.notFound().build();
 
-        return pessoaRepository.findById(pessoaId)
-                .map( pessoa -> ResponseEntity.ok(pessoa))
-                .orElse(ResponseEntity.notFound().build());
+        return pessoaService.buscarTeste(pessoaId);
 
     }
 

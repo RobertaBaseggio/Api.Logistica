@@ -1,9 +1,8 @@
 package br.com.senai.domain.model;
 
-public enum StatusEntrega {
+    public enum StatusEntrega {
+        PENDENTE,
+        FINALIZADA,
+        CANCELADA
 
-    PENDENTE,
-    FINALIZADA,
-    CANCELADA
-
-}
+    }
