@@ -7,8 +7,9 @@ import lombok.Setter;
 @Getter
 public class PessoaModel {
 
-    long id;
+    private long id;
     private String nomePessoa;
     private String emailPessoa;
-    String telefone;
+    private String telefone;
+
 }

@@ -57,4 +57,26 @@ public class PessoaService {
         return pessoaAssembler.toCollectionModel(pessoaRepository.findAll());
     }
 
+    public List<PessoaModel> listarPorNome(String nome){
+
+        return pessoaAssembler.toCollectionModel(pessoaRepository.findByNome(nome));
     }
+
+
+    public List<PessoaModel> listarNomeContaining(String nomeContaining){
+        return pessoaAssembler.toCollectionModel(pessoaRepository.findByNomeContaining(nomeContaining));
+    }
+
+    public ResponseEntity<PessoaModel> editar(Long pessoaId, Pessoa pessoa){
+        if(!pessoaRepository.existsById(pessoaId)){
+            return ResponseEntity.notFound().build();
+        }
+
+        pessoa.setId(pessoaId);
+        pessoa = pessoaRepository.save(pessoa);
+
+        return ResponseEntity.ok(pessoaAssembler.toModel(pessoa));
+    }
+
+
+}
