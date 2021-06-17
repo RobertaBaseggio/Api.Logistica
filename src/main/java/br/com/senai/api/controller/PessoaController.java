@@ -27,13 +27,13 @@ public class PessoaController {
     private PessoaAssembler pessoaAssembler;
 
     @GetMapping
-    public List<PessoaModel> listar(){
-    return pessoaService.listar();
+    public List<PessoaModel> listar(Pessoa pessoa){
+    return pessoaService.listar(pessoa);
     }
 
     @GetMapping("/nome/{pessoaNome}")
-    public List<PessoaModel> listarPorNome(@PathVariable String pessoaNome){
-        return pessoaService.listarPorNome(pessoaNome);
+    public List<PessoaModel> listarPorNome(@PathVariable String pessoaNome, Pessoa pessoa){
+        return pessoaService.listarPorNome(pessoaNome, pessoa);
     }
 
     @GetMapping("/nome/containing/{nomeContaining}")
@@ -50,7 +50,7 @@ public class PessoaController {
 //        }
 //        return ResponseEntity.notFound().build();
 
-        return pessoaService.buscarTeste(pessoaId);
+        return pessoaService.buscarPessoa(pessoaId);
 
     }
 

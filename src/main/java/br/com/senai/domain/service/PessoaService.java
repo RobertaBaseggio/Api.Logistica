@@ -43,33 +43,51 @@ public class PessoaService {
                 .orElseThrow(()->new NegocioException("Pessoa não encontrada."));
         }
 
-    public ResponseEntity<PessoaModel> buscarTeste(Long pessoaId) {
+    public ResponseEntity<PessoaModel> buscarPessoa(Long pessoaId) {
         return pessoaRepository.findById(pessoaId).map(entrega -> {
 
             return ResponseEntity.ok(pessoaAssembler.toModel(entrega));
         })
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(()-> new NegocioException("Pessoa não encontrada"));
 
     }
 
-    public List<PessoaModel> listar(){
+    public List<PessoaModel> listar(Pessoa pessoa){
+
+        boolean ListValidation = pessoaRepository.findAll().isEmpty();
+
+        if (ListValidation) {
+            throw new NegocioException("Não existe nenhuma pessoa cadastrada");
+        }
 
         return pessoaAssembler.toCollectionModel(pessoaRepository.findAll());
     }
 
-    public List<PessoaModel> listarPorNome(String nome){
+    public List<PessoaModel> listarPorNome(String nome, Pessoa pessoa){
 
+        boolean nomeValidation = pessoaRepository.findByNome(pessoa.getNome()).isEmpty();
+
+        if (nomeValidation) {
+            throw new NegocioException("Não existe nenhuma pessoa cadastrada com este nome");
+        }
         return pessoaAssembler.toCollectionModel(pessoaRepository.findByNome(nome));
     }
 
 
     public List<PessoaModel> listarNomeContaining(String nomeContaining){
+
+        boolean containingValidation = pessoaRepository.findByNomeContaining(nomeContaining).isEmpty();
+
+        if (containingValidation) {
+            throw new NegocioException("Não encontrado");
+        }
+
         return pessoaAssembler.toCollectionModel(pessoaRepository.findByNomeContaining(nomeContaining));
     }
 
     public ResponseEntity<PessoaModel> editar(Long pessoaId, Pessoa pessoa){
         if(!pessoaRepository.existsById(pessoaId)){
-            return ResponseEntity.notFound().build();
+            throw new NegocioException("Id não encontrado");
         }
 
         pessoa.setId(pessoaId);
