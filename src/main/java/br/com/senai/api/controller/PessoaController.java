@@ -33,7 +33,7 @@ public class PessoaController {
 
     @GetMapping("/nome/{pessoaNome}")
     public List<PessoaModel> listarPorNome(@PathVariable String pessoaNome, Pessoa pessoa){
-        return pessoaService.listarPorNome(pessoaNome, pessoa);
+        return pessoaService.listarPorNome(pessoaNome);
     }
 
     @GetMapping("/nome/containing/{nomeContaining}")

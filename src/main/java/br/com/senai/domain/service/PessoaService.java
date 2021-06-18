@@ -36,6 +36,8 @@ public class PessoaService {
 
         pessoaRepository.deleteById(pessoaId);
 
+            throw new NegocioException("Pessoa deletada");
+
         }
 
         public Pessoa buscar(Long pessoaId){
@@ -63,13 +65,14 @@ public class PessoaService {
         return pessoaAssembler.toCollectionModel(pessoaRepository.findAll());
     }
 
-    public List<PessoaModel> listarPorNome(String nome, Pessoa pessoa){
+    public List<PessoaModel> listarPorNome(String nome){
 
-        boolean nomeValidation = pessoaRepository.findByNome(pessoa.getNome()).isEmpty();
+        boolean nomeValidation = pessoaRepository.findByNome(nome).isEmpty();
 
         if (nomeValidation) {
             throw new NegocioException("Não existe nenhuma pessoa cadastrada com este nome");
         }
+
         return pessoaAssembler.toCollectionModel(pessoaRepository.findByNome(nome));
     }
 
