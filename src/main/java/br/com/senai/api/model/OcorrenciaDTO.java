@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Setter
 @Getter
-public class OcorrenciaModel {
+public class OcorrenciaDTO {
 
     private Long id;
     private String descricao;

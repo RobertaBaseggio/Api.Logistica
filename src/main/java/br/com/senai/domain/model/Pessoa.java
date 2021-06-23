@@ -32,10 +32,14 @@ public class Pessoa {
     @Size(max = 50)
      String nome;
 
-    @NotBlank
-    @Email
-    @Size(min = 5)
-     String email;
+//    @NotBlank
+//    @Email
+//    @Size(min = 5)
+//     String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id")
+    Usuario usuario;
 
     @NotBlank
     @Size(min = 14)

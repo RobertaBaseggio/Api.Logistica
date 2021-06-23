@@ -1,8 +1,7 @@
 package br.com.senai.domain.service;
 
 import br.com.senai.api.assembler.PessoaAssembler;
-import br.com.senai.api.model.EntregaModel;
-import br.com.senai.api.model.PessoaModel;
+import br.com.senai.api.model.PessoaDTO;
 import br.com.senai.domain.exception.NegocioException;
 import br.com.senai.domain.model.Pessoa;
 import br.com.senai.domain.repository.PessoaRepository;
@@ -23,11 +22,11 @@ public class PessoaService {
     @Transactional
     public Pessoa cadastrar(Pessoa pessoa) {
 
-        boolean emailValidation = pessoaRepository.findByEmail(pessoa.getEmail()).isPresent();
-
-        if (emailValidation) {
-            throw new NegocioException("Já existe uma pessoa com este e-mail cadastrado");
-        }
+//        boolean emailValidation = pessoaRepository.findByEmail(pessoa.getEmail()).isPresent();
+//
+//        if (emailValidation) {
+//            throw new NegocioException("Já existe uma pessoa com este e-mail cadastrado");
+//        }
         return pessoaRepository.save(pessoa);
     }
 
@@ -45,7 +44,7 @@ public class PessoaService {
                 .orElseThrow(()->new NegocioException("Pessoa não encontrada."));
         }
 
-    public ResponseEntity<PessoaModel> buscarPessoa(Long pessoaId) {
+    public ResponseEntity<PessoaDTO> buscarPessoa(Long pessoaId) {
         return pessoaRepository.findById(pessoaId).map(entrega -> {
 
             return ResponseEntity.ok(pessoaAssembler.toModel(entrega));
@@ -54,7 +53,7 @@ public class PessoaService {
 
     }
 
-    public List<PessoaModel> listar(Pessoa pessoa){
+    public List<PessoaDTO> listar(Pessoa pessoa){
 
         boolean ListValidation = pessoaRepository.findAll().isEmpty();
 
@@ -65,7 +64,7 @@ public class PessoaService {
         return pessoaAssembler.toCollectionModel(pessoaRepository.findAll());
     }
 
-    public List<PessoaModel> listarPorNome(String nome){
+    public List<PessoaDTO> listarPorNome(String nome){
 
         boolean nomeValidation = pessoaRepository.findByNome(nome).isEmpty();
 
@@ -77,7 +76,7 @@ public class PessoaService {
     }
 
 
-    public List<PessoaModel> listarNomeContaining(String nomeContaining){
+    public List<PessoaDTO> listarNomeContaining(String nomeContaining){
 
         boolean containingValidation = pessoaRepository.findByNomeContaining(nomeContaining).isEmpty();
 
@@ -88,7 +87,7 @@ public class PessoaService {
         return pessoaAssembler.toCollectionModel(pessoaRepository.findByNomeContaining(nomeContaining));
     }
 
-    public ResponseEntity<PessoaModel> editar(Long pessoaId, Pessoa pessoa){
+    public ResponseEntity<PessoaDTO> editar(Long pessoaId, Pessoa pessoa){
         if(!pessoaRepository.existsById(pessoaId)){
             throw new NegocioException("Id não encontrado");
         }

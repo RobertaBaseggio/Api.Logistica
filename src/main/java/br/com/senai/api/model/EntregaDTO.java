@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 
 @Setter
 @Getter
-public class EntregaModel {
+public class EntregaDTO {
 
 
     private Long id;
-    private PessoaModel nomePessoa;
-    private DestinatarioModel destinatario;
+    private PessoaDTO nomePessoa;
+    private DestinatarioDTO destinatario;
     private BigDecimal taxa;
     private LocalDateTime dataPedido;
     private LocalDateTime dataFinalizacao;
