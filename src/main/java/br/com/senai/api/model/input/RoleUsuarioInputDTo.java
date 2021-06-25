@@ -9,7 +9,6 @@ import javax.persistence.Id;
 @Getter
 public class RoleUsuarioInputDTo {
 
-    private long usuarios_id;
     private String role_nome_role;
 
 }
